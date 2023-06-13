@@ -1,3 +1,4 @@
+// Imports necessary modules and functions
 use crate::api::core_handler::get_payload_bytes;
 use crate::models::Stock;
 use crate::services::stock_service::*;
@@ -5,26 +6,28 @@ use actix_web::{error, web, Error, HttpResponse, Responder};
 use serde_derive::{Deserialize, Serialize};
 use serde_json;
 
+// Defines the structure of stock increment input
 #[derive(Serialize, Deserialize, Debug)]
 pub struct StockIncr {
     id: i32,
     incr_amount: i32,
 }
 
+// Function to increment stock and send a response
 pub async fn stock_increment(data: web::Json<StockIncr>) -> Result<HttpResponse, Error> {
-    // Call the increment stock service function
+    // Call to increment stock function from service
     let stock = increment_stock(data.id, data.incr_amount);
 
-    // Now send the response
+    // Sending the response
     Ok(HttpResponse::Ok().json(stock))
 }
 
-//#[get("/stock/list/")]
+// Function to get list of all stocks
 pub async fn stock_list() -> Result<impl Responder, Error> {
-    // Call the get stock service functions
+    // Call to get stock function from service
     let stocks = get_stock();
 
-    // check if we have received anything, otherwise return an error
+    // Check if stocks is empty, return error if true
     if stocks.len() > 0 {
         Ok(HttpResponse::Ok().json(stocks))
     } else {
@@ -32,82 +35,61 @@ pub async fn stock_list() -> Result<impl Responder, Error> {
     }
 }
 
-/// The endpoint to create a new stock balance
-/// # Arguments
-///
-/// * 'payload' - this contains the JSON body data for the new stock
-///            
-/// # Return type
-/// * HTTPResponse or Error
-///
+// Function to create a new stock
 pub async fn stock_create(payload: web::Payload) -> Result<HttpResponse, Error> {
-    // payload as bytes
+    // Convert payload into bytes
     let body = get_payload_bytes(payload).await;
 
     match body {
         Ok(b) => {
-            // body is loaded, now we can deserialize serde-json
+            // Deserialize the body
             let obj = serde_json::from_slice::<Stock>(&b)?;
 
-            // Call the stock service function to create stock
+            // Call to create stock function from service
             let created_stock = create_stock(&obj);
 
-            // Now send back the response
+            // Send the response
             Ok(HttpResponse::Ok().json(created_stock))
         }
         Err(e) => Err(e),
     }
 }
 
-/// The endpoint to delete a stock balance
-/// # Arguments
-///
-/// * 'payload' - this contains the JSON body data for the stock
-///            
-/// # Return type
-/// * HTTPResponse or Error
-///
+// Function to delete a stock
 pub async fn stock_delete(payload: web::Payload) -> Result<HttpResponse, Error> {
-    // payload as bytes
+    // Convert payload into bytes
     let body = get_payload_bytes(payload).await;
 
     match body {
         Ok(b) => {
-            // body is loaded, now we can deserialize serde-json
+            // Deserialize the body
             let obj = serde_json::from_slice::<Stock>(&b)?;
 
-            // Delete Order
+            // Call to delete stock function from service
             let return_info = delete_stock(&obj);
 
-            // Now send the response
-            Ok(HttpResponse::Ok().json(return_info)) // <- send response
+            // Send the response
+            Ok(HttpResponse::Ok().json(return_info))
         }
         Err(e) => Err(e),
     }
 }
 
-/// The endpoint to update a stock balance
-/// # Arguments
-///
-/// * 'payload' - this contains the JSON body data for the stock
-///            
-/// # Return type
-/// * HTTPResponse or Error
-///
+// Function to update a stock
 pub async fn stock_update(payload: web::Payload) -> Result<HttpResponse, Error> {
-    // payload as bytes
+    // Convert payload into bytes
     let body = get_payload_bytes(payload).await;
 
     match body {
         Ok(b) => {
-            // body is loaded, now we can deserialize serde-json
+            // Deserialize the body
             let obj = serde_json::from_slice::<Stock>(&b)?;
 
-            // Call the update stock service function
+            // Call to update stock function from service
             let stock = update_stock(&obj);
 
-            // Now send the response
-            Ok(HttpResponse::Ok().json(stock)) // <- send response
+            // Send the response
+            Ok(HttpResponse::Ok().json(stock))
         }
         Err(e) => Err(e),
     }

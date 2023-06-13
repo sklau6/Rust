@@ -1,13 +1,15 @@
-Create a simple blockchain in Rust. This is a more complex program that demonstrates some fundamental blockchain concepts, such as creating blocks, hashing, and validating the chain.
+Simple blockchain (v1) in Rust. This is an illustration of a straightforward blockchain built in Rust. It is a slightly intricate program exhibiting some basic blockchain concepts, such as formation of blocks, hashing, and verification of the chain.
 
-1. Add dependencies to Cargo.toml
-2. Import necessary libraries
-3. Define the Block and Blockchain structs
-4. Implement methods for creating new blocks and hashing
-5. Implement methods for creating a new blockchain and adding blocks
-6. Implement methods for validating the chain
-7. Test the blockchain in the main function
+The steps are as follows:
 
-This  demonstrates a simple blockchain in Rust. The program defines Block and Blockchain structs, implements methods for creating new blocks, hashing, creating a new blockchain, adding blocks, and validating the chain.
+1. Add necessary dependencies to the Cargo.toml file
+2. Incorporate the required libraries
+3. Formulate the Block and Blockchain structures
+4. Develop methods for producing new blocks and hashing
+5. Develop methods to construct a new blockchain and append blocks
+6. Establish methods to authenticate the chain
+7. Experiment with the blockchain within the main function
 
-The main function creates a new blockchain, adds a few blocks to it, and validates the chain. It also shows an example of tampering with the data in the chain and re-validating the tampered chain, which should result in an invalid blockchain.
+This portrayal exhibits a rudimentary blockchain in Rust, with definitions of Block and Blockchain structures and implementation of methods for generating new blocks, hashing, initiating a new blockchain, appending blocks, and confirming the chain's integrity.
+
+The main function initiates a fresh blockchain, inserts several blocks into it, and confirms the chain's validity. It also provides an instance of data manipulation within the chain and re-validation of the manipulated chain, resulting in an invalidated blockchain.

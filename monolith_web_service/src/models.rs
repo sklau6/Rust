@@ -1,8 +1,10 @@
+// Imports schema definitions
 use super::schema::orders;
 use super::schema::products;
 use super::schema::stocks;
 use serde_derive::{Deserialize, Serialize};
 
+// Represents an Order in the system
 #[derive(Queryable, AsChangeset, Debug, Serialize, Deserialize)]
 pub struct Order {
     pub id: i32,
@@ -14,7 +16,9 @@ pub struct Order {
     pub fulfilled: bool,
 }
 
+// Order Implementation
 impl Order {
+    // Constructor for Order
     pub fn new(
         id: i32,
         product_name: String,
@@ -35,6 +39,7 @@ impl Order {
     }
 }
 
+// Represents a new Order to be inserted into the DB
 #[derive(Insertable, Queryable)]
 #[table_name = "orders"]
 pub struct NewOrder {
@@ -45,11 +50,7 @@ pub struct NewOrder {
     pub address: String,
 }
 
-// #[derive(Debug, Serialize, Deserialize)]
-// pub struct OrderDetail {
-//     id: i32,
-// }
-
+// Represents a Product in the system
 #[derive(Queryable, AsChangeset, Debug, Serialize, Deserialize)]
 pub struct Product {
     pub id: i32,
@@ -58,6 +59,7 @@ pub struct Product {
     pub amount: i32,
 }
 
+// Represents a new Product to be inserted into the DB
 #[derive(Insertable, Queryable)]
 #[table_name = "products"]
 pub struct NewProduct {
@@ -66,6 +68,7 @@ pub struct NewProduct {
     pub amount: i32,
 }
 
+// Represents a Stock in the system
 #[derive(Queryable, AsChangeset, Debug, Serialize, Deserialize)]
 pub struct Stock {
     pub id: i32,
@@ -74,6 +77,7 @@ pub struct Stock {
     pub amount: i32,
 }
 
+// Represents a new Stock to be inserted into the DB
 #[derive(Insertable, Queryable)]
 #[table_name = "stocks"]
 pub struct NewStock {
@@ -82,6 +86,7 @@ pub struct NewStock {
     pub amount: i32,
 }
 
+// Represents the return information structure
 #[derive(Serialize, Deserialize)]
 pub struct ReturnInfo {
     pub amount: usize,
